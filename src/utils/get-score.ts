@@ -13,7 +13,8 @@ function getFrameScore (
         const nextFourRolls = [frames[index + 1], frames[index + 2]]
             .reduce(
                 (accumulator, frame) => {
-                    accumulator.push(...frame.attemptsMap[player.name]);
+                    if (frame)
+                        accumulator.push(...frame.attemptsMap[player.name]);
 
                     return accumulator;
                 },

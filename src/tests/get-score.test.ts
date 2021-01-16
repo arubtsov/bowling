@@ -46,4 +46,13 @@ describe('getScore()', () => {
 
         expect(getScore(playerOne, game)).toEqual(29);
     });
+
+    it('Regression: Strike is one of last frames', () => {
+        let game = createGame([playerOne]);
+
+        game = addFrame(game, [[10, 0]]);
+        game = addFrame(game, [[3, 6]]);
+
+        expect(getScore(playerOne, game)).toEqual(28);
+    });
 });
