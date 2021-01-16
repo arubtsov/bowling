@@ -36,4 +36,14 @@ describe('getScore()', () => {
         expect(getScore(playerOne, game)).toEqual(17);
         expect(getScore(playerTwo, game)).toEqual(13);
     });
+
+    it('Should take strikes into account', () => {
+        let game = createGame([playerOne]);
+
+        game = addFrame(game, [[10, 0]]);
+        game = addFrame(game, [[3, 6]]);
+        game = addFrame(game, [[1, 0]]);
+
+        expect(getScore(playerOne, game)).toEqual(29);
+    });
 });
