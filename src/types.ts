@@ -10,5 +10,6 @@ export interface Frame {
 }
 
 export interface Game {
+    players: Player[];
     frames: Frame[];
 }
