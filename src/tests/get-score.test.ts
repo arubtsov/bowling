@@ -55,4 +55,15 @@ describe('getScore()', () => {
 
         expect(getScore(playerOne, game)).toEqual(28);
     });
+
+    it('Should correctly score two Strikes in a row', () => {
+        let game = createGame([playerOne]);
+
+        game = addFrame(game, [[10, 0]]);
+        game = addFrame(game, [[10, 0]]);
+        game = addFrame(game, [[4, 0]]);
+        game = addFrame(game, [[2, 0]]);
+
+        expect(getScore(playerOne, game)).toEqual(46);
+    });
 });
