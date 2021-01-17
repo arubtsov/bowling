@@ -1,5 +1,5 @@
 import { Player, Game, Frame } from '../types';
-import { isStrike } from './predicates';
+import { isStrike, isSpare } from './predicates';
 import { sum } from './array';
 
 function getFrameScore (
@@ -27,6 +27,12 @@ function getFrameScore (
                 }
             }
         }
+    }
+    else if (isSpare(attempts)) {
+        const nextFrame = frames[index + 1];
+
+        if (nextFrame)
+            score += nextFrame.attemptsMap[player.name][0];
     }
 
     return score;

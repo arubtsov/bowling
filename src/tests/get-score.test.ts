@@ -76,4 +76,13 @@ describe('getScore()', () => {
 
         expect(getScore(playerOne, game)).toEqual(26);
     });
+
+    it('Should correctly score Spare', () => {
+        let game = createGame([playerOne]);
+
+        game = addFrame(game, [[8, 2]]);
+        game = addFrame(game, [[2, 0]]);
+
+        expect(getScore(playerOne, game)).toEqual(14);
+    });
 });

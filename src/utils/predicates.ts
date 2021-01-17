@@ -6,4 +6,10 @@ function isStrike (
     return attempts[0] === 10;
 }
 
-export { isStrike }
+function isSpare (
+    attempts: Attempts
+): boolean {
+    return attempts[0] + attempts[1] === 10;
+}
+
+export { isStrike, isSpare }
