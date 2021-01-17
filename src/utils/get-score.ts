@@ -1,5 +1,6 @@
 import { Player, Game, Frame } from '../types';
 import { isStrike } from './predicates';
+import { sum } from './array';
 
 function getFrameScore (
     player: Player,
@@ -7,27 +8,23 @@ function getFrameScore (
     index: number
 ): number {
     const attempts = frames[index].attemptsMap[player.name];
-    let score = attempts[0] + attempts[1];
+    let score = sum(attempts);
 
     if (isStrike(attempts)) {
-        const nextFourRolls = [frames[index + 1], frames[index + 2]]
-            .reduce(
-                (accumulator, frame) => {
-                    if (frame)
-                        accumulator.push(...frame.attemptsMap[player.name]);
+        let rollsToAdd = 2;
 
-                    return accumulator;
-                },
-                [] as number[]
-            );
-        let ballsToAdd = 2;
+        for (const nextFrame of [frames[index + 1], frames[index + 2]]) {
+            if (nextFrame && rollsToAdd) {
+                const nextFrameAttempts = nextFrame.attemptsMap[player.name];
 
-        while (ballsToAdd && nextFourRolls.length) {
-            const roll = nextFourRolls.shift();
-
-            if (roll) {
-                score += roll;
-                ballsToAdd--;
+                if (isStrike(nextFrameAttempts)) {
+                    rollsToAdd -= 1;
+                    score += nextFrameAttempts[0];
+                }
+                else {
+                    rollsToAdd -= 2;
+                    score += sum(nextFrameAttempts);
+                }
             }
         }
     }
@@ -40,12 +37,13 @@ function getScore (
     player: Player,
     game: Game
 ): number {
+    const { frames } = game;
     let score = 0;
 
-    return game.frames.reduce(
-        (accumulator, frame, index) =>
-            accumulator + getFrameScore(player, game.frames, index),
-    score);
+    for (let index = 0; index < frames.length; index++)
+        score += getFrameScore(player, frames, index);
+
+    return score;
 }
 
 export { getScore };
