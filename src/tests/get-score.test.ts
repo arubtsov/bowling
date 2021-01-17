@@ -96,4 +96,22 @@ describe('getScore()', () => {
 
         expect(getScore(playerOne, game)).toEqual(300);
     });
+
+    it('Should correctly score given examples',() => {
+        let game = createGame([playerOne, playerTwo]);
+
+        game = addFrame(game, [[8, 0], [8, 2]]);
+        game = addFrame(game, [[7, 0], [9, 0]]);
+        game = addFrame(game, [[5, 3], [4, 4]]);
+        game = addFrame(game, [[9, 1], [7, 2]]);
+        game = addFrame(game, [[9, 1], [9, 0]]);
+        game = addFrame(game, [[10, 0], [10, 0]]);
+        game = addFrame(game, [[8, 0], [10, 0]]);
+        game = addFrame(game, [[5, 1], [8, 0]]);
+        game = addFrame(game, [[3, 7], [3, 5]]);
+        game = addFrame(game, [[9, 0], [9, 1, 7]]);
+
+        expect(getScore(playerOne, game)).toEqual(122);
+        expect(getScore(playerTwo, game)).toEqual(133);
+    });
 });
