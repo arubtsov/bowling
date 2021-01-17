@@ -11,13 +11,18 @@ function getFrameScore (
     let score = sum(attempts);
 
     if (isStrike(attempts)) {
+        const isLastButOne = index === 8;
         let rollsToAdd = 2;
 
         for (const nextFrame of [frames[index + 1], frames[index + 2]]) {
             if (nextFrame && rollsToAdd) {
                 const nextFrameAttempts = nextFrame.attemptsMap[player.name];
 
-                if (isStrike(nextFrameAttempts)) {
+                if (isLastButOne) {
+                    rollsToAdd -= 2;
+                    score += sum(nextFrameAttempts.slice(0, 2));
+                }
+                else if (isStrike(nextFrameAttempts)) {
                     rollsToAdd -= 1;
                     score += nextFrameAttempts[0];
                 }

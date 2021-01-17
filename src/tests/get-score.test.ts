@@ -47,7 +47,7 @@ describe('getScore()', () => {
         expect(getScore(playerOne, game)).toEqual(29);
     });
 
-    it('Regression: Strike is one of last frames', () => {
+    it('Regression: Strike in last but one frame', () => {
         let game = createGame([playerOne]);
 
         game = addFrame(game, [[10, 0]]);
@@ -84,5 +84,16 @@ describe('getScore()', () => {
         game = addFrame(game, [[2, 0]]);
 
         expect(getScore(playerOne, game)).toEqual(14);
+    });
+
+    it('Should correctly score perfect game', () => {
+        let game = createGame([playerOne]);
+
+        for(let index = 0; index < 9; index++)
+            game = addFrame(game, [[10, 0]]);
+
+        game = addFrame(game, [[10, 10, 10]]);
+
+        expect(getScore(playerOne, game)).toEqual(300);
     });
 });

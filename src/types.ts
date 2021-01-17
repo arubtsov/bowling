@@ -3,7 +3,7 @@ export interface Player {
     gamesWon: number;
 }
 
-export type Attempts = [number, number];
+export type Attempts = [number, number] | [number, number, number];
 
 export interface Frame {
     attemptsMap: Record<string, Attempts>;
