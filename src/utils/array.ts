@@ -1,5 +1,14 @@
+import { Attempts } from '../types';
+
 export function sum(
-    array: number[]
+    array: Attempts
 ): number {
-    return array.reduce((accumulator, current) => accumulator + current, 0);
+    return array.reduce<number>(
+        (accumulator, current) => {
+            if (current)
+                accumulator += current;
+
+            return accumulator
+        }
+    , 0);
 }

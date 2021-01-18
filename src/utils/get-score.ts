@@ -24,7 +24,9 @@ function getFrameScore (
                 }
                 else if (isStrike(nextFrameAttempts)) {
                     rollsToAdd -= 1;
-                    score += nextFrameAttempts[0];
+
+                    if (nextFrameAttempts[0])
+                        score += nextFrameAttempts[0];
                 }
                 else {
                     rollsToAdd -= 2;
@@ -36,8 +38,12 @@ function getFrameScore (
     else if (isSpare(attempts)) {
         const nextFrame = frames[index + 1];
 
-        if (nextFrame)
-            score += nextFrame.attemptsMap[player.name][0];
+        if (nextFrame) {
+            const attempts = nextFrame.attemptsMap[player.name];
+
+            if (attempts[0])
+                score += attempts[0];
+        }
     }
 
     return score;
