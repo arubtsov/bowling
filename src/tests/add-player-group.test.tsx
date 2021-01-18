@@ -8,7 +8,7 @@ import { addPlayer } from '../features/players/playersSlice';
 import { RootState } from '../app/rootReducer';
 
 describe('AddPlayerGroup', () => {
-    function setup (initialState?: RootState) {
+    function setup (initialState?: Pick<RootState, 'playersReducer'>) {
         const store = renderWithStore(<AddPlayerGroup />, { initialState });
 
         return { ...addPlayerGroupModel, store };

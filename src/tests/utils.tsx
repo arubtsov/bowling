@@ -7,13 +7,16 @@ import configureStore from 'redux-mock-store';
 import reducer, { RootState } from '../app/rootReducer';
 
 interface Options {
-    initialState?: RootState;
+    initialState?: Partial<RootState>;
     container?: Element;
 }
 
 const defaultState: RootState = {
     playersReducer: {
         players: []
+    },
+    gameReducer: {
+        frames: []
     }
 };
 const defaultOptions: Options = { initialState: defaultState };
@@ -23,7 +26,8 @@ function renderWithStore (
     ui: ReactElement,
     { initialState = defaultState, container } = defaultOptions
 ) {
-    const store = mockStore((action: AnyAction) => reducer(initialState, action));
+    const state = { ...defaultState, ...initialState };
+    const store = mockStore((action: AnyAction) => reducer(state, action));
 
     const Wrapper: FC = ({ children }) =>
         <Provider store={store}>{children}</Provider>;
