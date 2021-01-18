@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
 
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
@@ -11,12 +10,10 @@ import TableRow from '@material-ui/core/TableRow';
 
 import { PlayerItem } from './playerItem';
 import { EmptyView } from './emptyListView';
-import { RootState } from '../../app/rootReducer';
+import { usePlayers } from './usePlayers';
 
 const PlayerList: FC = () => {
-    const players = useSelector(
-        (state: RootState) => state.playersReducer.players
-    );
+    const players = usePlayers();
 
     return (
         <TableContainer component={Paper}>
