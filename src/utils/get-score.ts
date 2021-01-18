@@ -1,4 +1,4 @@
-import { Game, Frame } from '../types';
+import { Frame } from '../types';
 import { isStrike, isSpare } from './predicates';
 import { sum } from './array';
 
@@ -52,9 +52,8 @@ function getFrameScore (
 
 function getScore (
     playerName: string,
-    game: Game
+    frames: Frame[]
 ): number {
-    const { frames } = game;
     let score = 0;
 
     for (let index = 0; index < frames.length; index++)

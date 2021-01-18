@@ -1,8 +1,4 @@
-import { Attempts, Frame, Game, Player } from '../types';
-
-function createGame (): Game {
-    return { frames: [] };
-}
+import { Attempts, Frame, Player } from '../types';
 
 function createFrame (
     players: Player[],
@@ -18,13 +14,11 @@ function createFrame (
 }
 
 function addFrame (
-    game: Game,
+    frames: Frame[],
     players: Player[],
     attempts: Attempts[]
-): Game {
-    return {
-        frames: [...game.frames, createFrame(players, attempts)]
-    };
+): void {
+    frames.push(createFrame(players, attempts));
 }
 
-export { createGame, addFrame };
+export { createFrame, addFrame };
