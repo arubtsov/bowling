@@ -1,9 +1,7 @@
 import { Attempts, Frame, Game, Player } from '../types';
 
-function createGame (
-    players: Player[]
-): Game {
-    return { players, frames: [] };
+function createGame (): Game {
+    return { frames: [] };
 }
 
 function createFrame (
@@ -21,12 +19,12 @@ function createFrame (
 
 function addFrame (
     game: Game,
+    players: Player[],
     attempts: Attempts[]
 ): Game {
     return {
-        ...game,
-        frames: [...game.frames, createFrame(game.players, attempts)]
-    }
+        frames: [...game.frames, createFrame(players, attempts)]
+    };
 }
 
 export { createGame, addFrame };
