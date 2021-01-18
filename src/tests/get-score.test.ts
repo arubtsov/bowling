@@ -18,7 +18,7 @@ describe('getScore()', () => {
     it('Should return 0 if no frames are played yet', () => {
         const game = createGame();
 
-        expect(getScore(playerOne, game)).toEqual(0);
+        expect(getScore(playerOne.name, game)).toEqual(0);
     });
 
     it('Should return sum of attempts for a player', () => {
@@ -27,7 +27,7 @@ describe('getScore()', () => {
         game = addFrame(game, onePLayer, [[2, 5]]);
         game = addFrame(game, onePLayer, [[3, 7]]);
 
-        expect(getScore(playerOne, game)).toEqual(17);
+        expect(getScore(playerOne.name, game)).toEqual(17);
     });
 
     it('Should distinct players while calculating the score', () => {
@@ -36,8 +36,8 @@ describe('getScore()', () => {
         game = addFrame(game, twoPlayers, [[2, 5], [1, 4]]);
         game = addFrame(game, twoPlayers, [[3, 7], [2, 6]]);
 
-        expect(getScore(playerOne, game)).toEqual(17);
-        expect(getScore(playerTwo, game)).toEqual(13);
+        expect(getScore(playerOne.name, game)).toEqual(17);
+        expect(getScore(playerTwo.name, game)).toEqual(13);
     });
 
     it('Should take strikes into account', () => {
@@ -47,7 +47,7 @@ describe('getScore()', () => {
         game = addFrame(game, onePLayer, [[3, 6]]);
         game = addFrame(game, onePLayer, [[1, 0]]);
 
-        expect(getScore(playerOne, game)).toEqual(29);
+        expect(getScore(playerOne.name, game)).toEqual(29);
     });
 
     it('Regression: Strike in last but one frame', () => {
@@ -56,7 +56,7 @@ describe('getScore()', () => {
         game = addFrame(game, onePLayer, [[10, 0]]);
         game = addFrame(game, onePLayer, [[3, 6]]);
 
-        expect(getScore(playerOne, game)).toEqual(28);
+        expect(getScore(playerOne.name, game)).toEqual(28);
     });
 
     it('Should correctly score two Strikes in a row', () => {
@@ -67,7 +67,7 @@ describe('getScore()', () => {
         game = addFrame(game, onePLayer, [[4, 0]]);
         game = addFrame(game, onePLayer, [[2, 0]]);
 
-        expect(getScore(playerOne, game)).toEqual(44);
+        expect(getScore(playerOne.name, game)).toEqual(44);
     });
 
     it('Should correctly score Strike followed by a miss', () => {
@@ -77,7 +77,7 @@ describe('getScore()', () => {
         game = addFrame(game, onePLayer, [[0, 5]]);
         game = addFrame(game, onePLayer, [[6, 0]]);
 
-        expect(getScore(playerOne, game)).toEqual(26);
+        expect(getScore(playerOne.name, game)).toEqual(26);
     });
 
     it('Should correctly score Spare', () => {
@@ -86,7 +86,7 @@ describe('getScore()', () => {
         game = addFrame(game, onePLayer, [[8, 2]]);
         game = addFrame(game, onePLayer, [[2, 0]]);
 
-        expect(getScore(playerOne, game)).toEqual(14);
+        expect(getScore(playerOne.name, game)).toEqual(14);
     });
 
     it('Should correctly score perfect game', () => {
@@ -97,7 +97,7 @@ describe('getScore()', () => {
 
         game = addFrame(game, onePLayer, [[10, 10, 10]]);
 
-        expect(getScore(playerOne, game)).toEqual(300);
+        expect(getScore(playerOne.name, game)).toEqual(300);
     });
 
     it('Should correctly score given examples',() => {
@@ -114,7 +114,7 @@ describe('getScore()', () => {
         game = addFrame(game, twoPlayers, [[3, 7], [3, 5]]);
         game = addFrame(game, twoPlayers, [[9, 0], [9, 1, 7]]);
 
-        expect(getScore(playerOne, game)).toEqual(122);
-        expect(getScore(playerTwo, game)).toEqual(133);
+        expect(getScore(playerOne.name, game)).toEqual(122);
+        expect(getScore(playerTwo.name, game)).toEqual(133);
     });
 });
