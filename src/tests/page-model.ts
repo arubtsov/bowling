@@ -10,4 +10,20 @@ const addPlayerGroupModel = {
     }
 };
 
-export { addPlayerGroupModel };
+const playerItemModel = {
+    get deleteButton () {
+        return screen.getByRole('button', { name: /delete player/i });
+    }
+};
+
+const playerListModel = {
+    get emptyView () {
+        return screen.getByText(/no players yet/i);
+    }
+}
+
+export {
+    addPlayerGroupModel,
+    playerItemModel,
+    playerListModel
+};
