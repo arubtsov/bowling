@@ -1,14 +1,15 @@
 import React from 'react';
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 
 import { renderWithStore } from './utils';
 import { addPlayerGroupModel } from './page-model';
 import { AddPlayerGroup } from '../features/players/addPlayerGroup';
 import { addPlayer } from '../features/players/playersSlice';
+import { RootState } from '../app/rootReducer';
 
 describe('AddPlayerGroup', () => {
-    function setup () {
-        const store = renderWithStore(<AddPlayerGroup />);
+    function setup (initialState?: RootState) {
+        const store = renderWithStore(<AddPlayerGroup />, { initialState });
 
         return { ...addPlayerGroupModel, store };
     }
@@ -40,5 +41,30 @@ describe('AddPlayerGroup', () => {
         fireEvent.click(button);
 
         expect(store.getActions()).toEqual([addPlayer(name)]);
+    });
+
+    it('Should show error, disable button, and dispatch no actions if player name is already taken', () => {
+        const errorRe = /This name is already taken/i;
+        const existingPlayer = { name: 'Jesus', gamesWon: 0 };
+        const initialState = {
+            playersReducer: {
+                players: [existingPlayer]
+            }
+        };
+        const { input, button, store } = setup(initialState);
+
+        fireEvent.change(input, { target: { value: existingPlayer.name } });
+
+        expect(screen.getByText(errorRe)).toBeInTheDocument();
+        expect(button).toBeDisabled();
+
+        fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+
+        expect(store.getActions()).toEqual([]);
+
+        fireEvent.change(input, { target: { value: 'Dude' } });
+
+        expect(screen.queryByText(errorRe)).not.toBeInTheDocument();
+        expect(button).not.toBeDisabled();
     });
 });

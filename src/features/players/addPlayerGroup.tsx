@@ -6,13 +6,19 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import { addPlayer } from './playersSlice';
+import { useUniqueName } from './useUniqueName';
 
 const AddPlayerGroup: FC = () => {
     const dispatch = useDispatch();
     const [name, setName] = useState('');
+    const error = useUniqueName(name);
+    const hasError = !!error;
 
     const onSubmit = (event: FormEvent<HTMLElement>) => {
         event.preventDefault();
+
+        if (error) return;
+
         dispatch(addPlayer(name));
         setName('');
     };
@@ -26,6 +32,8 @@ const AddPlayerGroup: FC = () => {
             mt={3} component="form" onSubmit={onSubmit}
         >
             <TextField
+                error={hasError}
+                helperText={error}
                 id='name-input'
                 value={name}
                 label="New Player Name"
@@ -34,7 +42,7 @@ const AddPlayerGroup: FC = () => {
             />
             <Box ml={2}>
                 <Button variant="contained" color="primary" type="submit"
-                    disabled={!name}
+                    disabled={!name || hasError}
                 >
                     Add
                 </Button>
