@@ -17,7 +17,9 @@ const defaultState: RootState = {
     },
     gameReducer: {
         frames: [],
-        isFinished: false
+        isFinished: false,
+        currentFrameIndex: 0,
+        placesWon: {}
     }
 };
 const defaultOptions: Options = { initialState: defaultState };
