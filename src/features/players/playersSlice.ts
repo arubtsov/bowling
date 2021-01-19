@@ -24,13 +24,19 @@ const players = createSlice({
             state.players = state.players.filter(
                 player => player.name !== name
             );
+        },
+
+        clearStats (state) {
+            for (const player of state.players)
+                player.gamesWon = 0;
         }
     }
 });
 
 export const {
     addPlayer,
-    deletePlayer
+    deletePlayer,
+    clearStats
 } = players.actions;
 
 export default players.reducer;
