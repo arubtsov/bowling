@@ -20,4 +20,6 @@ export type GameFrame =  {
 export interface Game {
     frames: GameFrame[];
     isFinished: boolean;
+    currentFrameIndex: number;
+    placesWon: Record<string, number>;
 }
