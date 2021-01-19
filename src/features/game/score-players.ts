@@ -1,5 +1,16 @@
 import { Game } from '../../types';
 
+type Score = [number, string[]];
+
+function sortScoresDescending (left: Score, right: Score) {
+    if (left[0] < right[0])
+        return 1;
+    else if (left[0] > right[0])
+        return -1;
+
+    return 0;
+}
+
 function scorePlayers (state: Game) {
     const { frames } = state;
     const lastFrameMap = frames[frames.length - 1].framesMap;
@@ -13,17 +24,11 @@ function scorePlayers (state: Game) {
     }
 
     Object.entries(scoring)
-        .map<[number, string[]]>(
+        .map<Score>(
             ([score, names]) => [parseInt(score), names]
         )
-        .sort((left, right) => {
-            if (left[0] < right[0])
-                return 1;
-            else if (left[0] > right[0])
-                return -1;
-
-            return 0;
-        }).forEach(([score, names], index) => {
+        .sort(sortScoresDescending)
+        .forEach(([score, names], index) => {
             for (const name of names)
                 state.placesWon[name] = index + 1;
         });
