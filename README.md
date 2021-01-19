@@ -1,4 +1,7 @@
-# Getting Started with Create React App
+This is simple bowling score calculator.
+
+Appliaction is available via https://roll-and-score.herokuapp.com/
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
