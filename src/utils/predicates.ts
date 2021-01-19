@@ -9,15 +9,14 @@ function isStrike (
 function isSpare (
     rolls: Rolls
 ): boolean {
-    return typeof rolls[0] !== 'undefined' &&
-        typeof rolls[1] !== 'undefined' &&
+    return rolls[0] !== null && rolls[1] !== null &&
         rolls[0] + rolls[1] === 10;
 }
 
 function isDone(
     roll: Roll
 ) {
-    return  typeof roll === 'number';
+    return roll !== null;
 }
 
 export { isStrike, isSpare, isDone }
