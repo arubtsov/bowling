@@ -52,14 +52,15 @@ function getFrameScore (
 
 function getScore (
     playerName: string,
-    frames: Frame[]
+    frames: Frame[],
+    end: number = frames.length
 ): number {
     let score = 0;
 
-    for (let index = 0; index < frames.length; index++)
+    for (let index = 0; index < end; index++)
         score += getFrameScore(playerName, frames, index);
 
     return score;
 }
 
-export { getScore };
+export { getScore, getFrameScore };
