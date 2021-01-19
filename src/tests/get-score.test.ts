@@ -1,18 +1,10 @@
 import { getScore } from '../utils/get-score';
 import { addFrame } from '../utils/constructors';
 import { GameFrame } from '../types';
+import { playerOne, playerTwo } from './const';
 
 describe('getScore()', () => {
     let frames: GameFrame[] = [];
-    const playerOne = {
-        name: 'Jesus',
-        gamesWon: 0
-    };
-
-    const playerTwo = {
-        name: 'Dude',
-        gamesWon: 0
-    };
     const onePLayer = [playerOne];
     const twoPlayers = [playerOne, playerTwo];
 
