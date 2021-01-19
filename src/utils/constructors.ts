@@ -7,7 +7,7 @@ function createGameFrame (
     return players.reduce(
         (frame, { name: playerName }, index) => {
             frame.framesMap[playerName] = {
-                rolls: rolls ? rolls[index] : [void 0, void 0],
+                rolls: rolls ? rolls[index] : [null, null],
                 total: 0,
                 isFinished: false
             };

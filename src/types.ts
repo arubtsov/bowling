@@ -3,7 +3,7 @@ export interface Player {
     gamesWon: number;
 }
 
-export type Roll = undefined | number;
+export type Roll = null | number;
 export type Rolls = Roll[];
 
 export interface Frame {
