@@ -1,30 +1,32 @@
-import { Rolls, Frame, Player } from '../types';
+import { Rolls, GameFrame, Frame, Player } from '../types';
 
-function createFrame (
+function createGameFrame (
     players: Player[],
-    attempts?: Rolls[]
-): Frame {
-    return players.reduce<Frame>(
-        (frame, { name }, index) => {
-            frame.rollsMap[name] = attempts ? attempts[index] : [void 0, void 0];
-            frame.totalMap[name] = 0;
+    rolls?: Rolls[]
+): GameFrame {
+    return players.reduce(
+        (frame, { name: playerName }, index) => {
+            frame.framesMap[playerName] = {
+                rolls: rolls ? rolls[index] : [void 0, void 0],
+                total: 0,
+                isFinished: false
+            };
 
             return frame;
         },
         {
-            rollsMap: {},
-            totalMap: {},
+            framesMap: {} as Record<string, Frame>,
             isFinished: false
         }
     );
 }
 
 function addFrame (
-    frames: Frame[],
+    frames: GameFrame[],
     players: Player[],
-    attempts: Rolls[]
+    rolls: Rolls[]
 ): void {
-    frames.push(createFrame(players, attempts));
+    frames.push(createGameFrame(players, rolls));
 }
 
-export { createFrame, addFrame };
+export { createGameFrame, addFrame };
