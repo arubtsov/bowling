@@ -19,6 +19,7 @@ const defaultState: RootState = {
         frames: [],
         isFinished: false,
         currentFrameIndex: 0,
+        shownFrameIndex: 0,
         placesWon: {}
     }
 };

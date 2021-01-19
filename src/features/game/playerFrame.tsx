@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import TableCell from '@material-ui/core/TableCell';
 import Box from '@material-ui/core/Box';
 
+import { MobileHidden } from '../../components/mobileHidden';
 import { PinsSelect } from './pinsSelect';
 import { FrameTotal } from './frameTotal';
 
@@ -19,7 +20,7 @@ interface FrameProps {
 
 const PlayerFrame: FC<FrameProps> = ({ index, playerName, frame }) => {
     const dispatch = useDispatch();
-    const { currentFrameIndex } = useGame();
+    const { currentFrameIndex, shownFrameIndex } = useGame();
     const { rolls, total } = frame;
 
     const thirdRollAvailable = index === 9 && rolls[0] === 10;
@@ -33,25 +34,27 @@ const PlayerFrame: FC<FrameProps> = ({ index, playerName, frame }) => {
     }
 
     return (
-        <TableCell>
-            <Box display='flex' flexDirection='column'>
-                <Box display='flex' justifyContent='flex-end'>
-                    {
-                        rollsIndices.map(rollIndex =>
-                            <PinsSelect
-                                key={rollIndex}
-                                index={rollIndex}
-                                frameIndex={index}
-                                rolls={rolls}
-                                disabled={index > currentFrameIndex}
-                                onSelect={handleSelect}
-                            />
-                        )
-                    }
+        <MobileHidden hide={index !== shownFrameIndex}>
+            <TableCell>
+                <Box display='flex' flexDirection='column'>
+                    <Box display='flex' justifyContent='flex-end'>
+                        {
+                            rollsIndices.map(rollIndex =>
+                                <PinsSelect
+                                    key={rollIndex}
+                                    index={rollIndex}
+                                    frameIndex={index}
+                                    rolls={rolls}
+                                    disabled={index > currentFrameIndex}
+                                    onSelect={handleSelect}
+                                />
+                            )
+                        }
+                    </Box>
+                    <FrameTotal frameIndex={index}>{total}</FrameTotal>
                 </Box>
-                <FrameTotal frameIndex={index}>{total}</FrameTotal>
-            </Box>
-        </TableCell>
+            </TableCell>
+        </MobileHidden>
     )
 };
 

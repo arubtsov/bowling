@@ -14,7 +14,7 @@ const PlayerName: FC<NameProps> = props => {
     const { name } = props;
     const { isFinished, placesWon } = useGame();
     const nameElement = (
-        <Typography variant='h5' align='center'>
+        <Typography variant='body1' align='center'>
             {name}
         </Typography>
     );
