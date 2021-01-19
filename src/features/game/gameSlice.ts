@@ -3,8 +3,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Game, Player } from '../../types';
 import { createGameFrame } from '../../utils/constructors';
 import { isDone } from '../../utils/predicates';
-import { getFrameScore } from '../../utils/get-score';
 import { updateRolls } from './update-rolls';
+import { updateDependentFrameScores } from './update-frame-scores';
 import { scorePlayers } from './score-players';
 
 const initialState: Game = {
@@ -50,20 +50,7 @@ const game = createSlice({
             const { rolls } = playerFrame;
 
             updateRolls(frameIndex, rollIndex, roll, rolls);
-
-            for (let index = frameIndex - 2; index < frames.length; index++) {
-                const frameToUpdate = frames[index];
-
-                if (frameToUpdate) {
-                    if (!frameToUpdate.framesMap[playerName].rolls.find(isDone))
-                        continue;
-
-                    frameToUpdate.framesMap[playerName].total = getFrameScore(playerName, frames, index);
-
-                    if (index > 0)
-                        frameToUpdate.framesMap[playerName].total += frames[index - 1].framesMap[playerName].total;
-                }
-            }
+            updateDependentFrameScores(frameIndex, playerName, frames);
 
             playerFrame.isFinished = rolls.every(isDone);
             gameFrame.isFinished = Object.values(gameFrame.framesMap).reduce<boolean>(
