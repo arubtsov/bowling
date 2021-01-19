@@ -16,7 +16,8 @@ const defaultState: RootState = {
         players: []
     },
     gameReducer: {
-        frames: []
+        frames: [],
+        isFinished: false
     }
 };
 const defaultOptions: Options = { initialState: defaultState };

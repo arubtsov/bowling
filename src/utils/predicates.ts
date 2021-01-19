@@ -1,4 +1,4 @@
-import { Rolls } from "../types";
+import { Roll, Rolls } from "../types";
 
 function isStrike (
     rolls: Rolls
@@ -14,4 +14,10 @@ function isSpare (
         rolls[0] + rolls[1] === 10;
 }
 
-export { isStrike, isSpare }
+function isDone(
+    roll: Roll
+) {
+    return  typeof roll === 'number';
+}
+
+export { isStrike, isSpare, isDone }

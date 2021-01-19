@@ -1,9 +1,9 @@
 import { getScore } from '../utils/get-score';
 import { addFrame } from '../utils/constructors';
-import { Frame } from '../types';
+import { GameFrame } from '../types';
 
 describe('getScore()', () => {
-    let frames: Frame[] = [];
+    let frames: GameFrame[] = [];
     const playerOne = {
         name: 'Jesus',
         gamesWon: 0

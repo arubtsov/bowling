@@ -1,22 +1,22 @@
-import { Frame } from '../types';
+import { GameFrame } from '../types';
 import { isStrike, isSpare } from './predicates';
 import { sum } from './array';
 
 function getFrameScore (
     playerName: string,
-    frames: Frame[],
+    frames: GameFrame[],
     index: number
 ): number {
-    const rolls = frames[index].rollsMap[playerName];
-    let score = sum(rolls);
+    const { rolls: frameRolls } = frames[index].framesMap[playerName];
+    let score = sum(frameRolls);
 
-    if (isStrike(rolls)) {
+    if (isStrike(frameRolls)) {
         const isLastButOne = index === 8;
         let rollsToAdd = 2;
 
         for (const nextFrame of [frames[index + 1], frames[index + 2]]) {
             if (nextFrame && rollsToAdd) {
-                const nextFrameRolls = nextFrame.rollsMap[playerName];
+                const { rolls: nextFrameRolls } = nextFrame.framesMap[playerName];
 
                 if (isLastButOne) {
                     rollsToAdd -= 2;
@@ -35,14 +35,14 @@ function getFrameScore (
             }
         }
     }
-    else if (isSpare(rolls)) {
+    else if (isSpare(frameRolls)) {
         const nextFrame = frames[index + 1];
 
         if (nextFrame) {
-            const rolls = nextFrame.rollsMap[playerName];
+            const { rolls: nextFrameRolls } = nextFrame.framesMap[playerName];
 
-            if (rolls[0])
-                score += rolls[0];
+            if (nextFrameRolls[0])
+                score += nextFrameRolls[0];
         }
     }
 
@@ -52,7 +52,7 @@ function getFrameScore (
 
 function getScore (
     playerName: string,
-    frames: Frame[],
+    frames: GameFrame[],
     end: number = frames.length
 ): number {
     let score = 0;
