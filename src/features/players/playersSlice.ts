@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Player } from '../../types';
+import { startGame } from '../game/gameSlice';
 
 interface PlayersState {
     players: Player[];
@@ -30,6 +31,20 @@ const players = createSlice({
             for (const player of state.players)
                 player.gamesWon = 0;
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(startGame, (state, action) => {
+            const { placesWon } = action.payload;
+
+            for (const [name, place] of Object.entries(placesWon)) {
+                if (place === 1) {
+                    const winner = state.players.find(aPlayer => aPlayer.name === name);
+
+                    if (winner)
+                        winner.gamesWon += 1;
+                }
+            }
+        })
     }
 });
 
