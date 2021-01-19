@@ -24,7 +24,7 @@ describe('getScore()', () => {
         expect(getScore(playerOne.name, frames)).toEqual(0);
     });
 
-    it('Should return sum of attempts for a player', () => {
+    it('Should return sum of rolls for a player', () => {
         addFrame(frames, onePLayer, [[2, 5]]);
         addFrame(frames, onePLayer, [[3, 7]]);
 
