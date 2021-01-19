@@ -7,42 +7,42 @@ function getFrameScore (
     frames: Frame[],
     index: number
 ): number {
-    const attempts = frames[index].attemptsMap[playerName];
-    let score = sum(attempts);
+    const rolls = frames[index].rollsMap[playerName];
+    let score = sum(rolls);
 
-    if (isStrike(attempts)) {
+    if (isStrike(rolls)) {
         const isLastButOne = index === 8;
         let rollsToAdd = 2;
 
         for (const nextFrame of [frames[index + 1], frames[index + 2]]) {
             if (nextFrame && rollsToAdd) {
-                const nextFrameAttempts = nextFrame.attemptsMap[playerName];
+                const nextFrameRolls = nextFrame.rollsMap[playerName];
 
                 if (isLastButOne) {
                     rollsToAdd -= 2;
-                    score += sum(nextFrameAttempts.slice(0, 2));
+                    score += sum(nextFrameRolls.slice(0, 2));
                 }
-                else if (isStrike(nextFrameAttempts)) {
+                else if (isStrike(nextFrameRolls)) {
                     rollsToAdd -= 1;
 
-                    if (nextFrameAttempts[0])
-                        score += nextFrameAttempts[0];
+                    if (nextFrameRolls[0])
+                        score += nextFrameRolls[0];
                 }
                 else {
                     rollsToAdd -= 2;
-                    score += sum(nextFrameAttempts);
+                    score += sum(nextFrameRolls);
                 }
             }
         }
     }
-    else if (isSpare(attempts)) {
+    else if (isSpare(rolls)) {
         const nextFrame = frames[index + 1];
 
         if (nextFrame) {
-            const attempts = nextFrame.attemptsMap[playerName];
+            const rolls = nextFrame.rollsMap[playerName];
 
-            if (attempts[0])
-                score += attempts[0];
+            if (rolls[0])
+                score += rolls[0];
         }
     }
 

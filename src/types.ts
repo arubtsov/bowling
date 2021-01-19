@@ -3,12 +3,13 @@ export interface Player {
     gamesWon: number;
 }
 
-export type Attempt = undefined | number;
-export type Attempts = Attempt[];
+export type Roll = undefined | number;
+export type Rolls = Roll[];
 
 export interface Frame {
-    attemptsMap: Record<string, Attempts>;
+    rollsMap: Record<string, Rolls>;
     totalMap: Record<string, number>;
+    isFinished: boolean;
 }
 
 export interface Game {

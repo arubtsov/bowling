@@ -1,19 +1,20 @@
-import { Attempts, Frame, Player } from '../types';
+import { Rolls, Frame, Player } from '../types';
 
 function createFrame (
     players: Player[],
-    attempts?: Attempts[]
+    attempts?: Rolls[]
 ): Frame {
     return players.reduce<Frame>(
         (frame, { name }, index) => {
-            frame.attemptsMap[name] = attempts ? attempts[index] : [void 0, void 0];
+            frame.rollsMap[name] = attempts ? attempts[index] : [void 0, void 0];
             frame.totalMap[name] = 0;
 
             return frame;
         },
         {
-            attemptsMap: {},
-            totalMap: {}
+            rollsMap: {},
+            totalMap: {},
+            isFinished: false
         }
     );
 }
@@ -21,7 +22,7 @@ function createFrame (
 function addFrame (
     frames: Frame[],
     players: Player[],
-    attempts: Attempts[]
+    attempts: Rolls[]
 ): void {
     frames.push(createFrame(players, attempts));
 }

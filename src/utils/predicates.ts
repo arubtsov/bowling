@@ -1,17 +1,17 @@
-import { Attempts } from "../types";
+import { Rolls } from "../types";
 
 function isStrike (
-    attempts: Attempts
+    rolls: Rolls
 ): boolean {
-    return attempts[0] === 10;
+    return rolls[0] === 10;
 }
 
 function isSpare (
-    attempts: Attempts
+    rolls: Rolls
 ): boolean {
-    return typeof attempts[0] !== 'undefined' &&
-        typeof attempts[1] !== 'undefined' &&
-        attempts[0] + attempts[1] === 10;
+    return typeof rolls[0] !== 'undefined' &&
+        typeof rolls[1] !== 'undefined' &&
+        rolls[0] + rolls[1] === 10;
 }
 
 export { isStrike, isSpare }

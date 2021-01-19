@@ -1,7 +1,7 @@
-import { Attempts } from '../types';
+import { Rolls } from '../types';
 
 export function sum(
-    array: Attempts
+    array: Rolls
 ): number {
     return array.reduce<number>(
         (accumulator, current) => {
