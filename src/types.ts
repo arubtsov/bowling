@@ -21,5 +21,6 @@ export interface Game {
     frames: GameFrame[];
     isFinished: boolean;
     currentFrameIndex: number;
+    shownFrameIndex: number;
     placesWon: Record<string, number>;
 }

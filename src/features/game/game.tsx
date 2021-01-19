@@ -13,6 +13,8 @@ import TableCell from '@material-ui/core/TableCell';
 import { EmptyView } from '../../components/emptyView';
 import { FrameMarker } from './frameMarker';
 import { FrameList } from './frameList';
+import { MobilePagination } from './mobilePagination';
+
 import { useGame } from './useGame';
 import { usePlayers } from '../players/usePlayers';
 import { startGame } from './gameSlice';
@@ -21,7 +23,7 @@ const NOT_FINISHED_MESSAGE = 'The game is not finished yet. All progress will be
 
 const Game: FC = () => {
     const dispatch = useDispatch();
-    const { frames, currentFrameIndex, isFinished, placesWon } = useGame();
+    const { frames, currentFrameIndex, isFinished, placesWon, shownFrameIndex } = useGame();
     const gamePlayerNames = frames[0] ? Object.keys(frames[0].framesMap) : [];
     const players = usePlayers();
 
@@ -54,6 +56,7 @@ const Game: FC = () => {
                                             key={index}
                                             index={index}
                                             currentFrameIndex={currentFrameIndex}
+                                            shownFrameIndex={shownFrameIndex}
                                         />
                                     )
                                 }
@@ -76,6 +79,7 @@ const Game: FC = () => {
                     </EmptyView>
                 }
             </Paper>
+            <MobilePagination />
         </Box>
     );
 };

@@ -16,6 +16,7 @@ describe('Game reducer', () => {
             frames: [] as GameFrame[],
             isFinished: false,
             currentFrameIndex: 0,
+            shownFrameIndex: 0,
             placesWon: {}
         };
 
@@ -28,6 +29,7 @@ describe('Game reducer', () => {
             frames: [],
             isFinished: false,
             currentFrameIndex: 0,
+            shownFrameIndex: 0,
             placesWon: {}
         });
     });

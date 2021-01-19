@@ -11,6 +11,7 @@ const initialState: Game = {
     frames: [],
     isFinished: false,
     currentFrameIndex: 0,
+    shownFrameIndex: 0,
     placesWon: {}
 };
 
@@ -35,8 +36,10 @@ const game = createSlice({
 
             state.frames = [];
             state.currentFrameIndex = 0;
+            state.shownFrameIndex = 0;
             state.isFinished = false;
             state.placesWon = {};
+
 
             while (state.frames.length < 10)
                 state.frames.push(createGameFrame(players));
@@ -53,18 +56,25 @@ const game = createSlice({
             updateDependentFrameScores(frameIndex, playerName, frames);
             updateFinishedState(playerFrame, gameFrame, state);
 
-            if (gameFrame.isFinished && frameIndex === currentFrameIndex)
+            if (gameFrame.isFinished && frameIndex === currentFrameIndex && frameIndex !== 9) {
                 state.currentFrameIndex += 1;
+                state.shownFrameIndex += 1;
+            }
 
             if (state.isFinished)
                 scorePlayers(state);
+        },
+
+        showFrame (state, action: PayloadAction<number>) {
+            state.shownFrameIndex = action.payload - 1;
         }
     }
 });
 
 export const {
     startGame,
-    addRoll
+    addRoll,
+    showFrame
 } = game.actions;
 
 export default game.reducer;
