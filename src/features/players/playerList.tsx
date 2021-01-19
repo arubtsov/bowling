@@ -9,7 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
 import { PlayerItem } from './playerItem';
-import { EmptyView } from './emptyListView';
+import { EmptyView } from '../../components/emptyView';
 import { usePlayers } from './usePlayers';
 
 const PlayerList: FC = () => {
@@ -39,7 +39,10 @@ const PlayerList: FC = () => {
                 </TableBody>
             </Table>
             {
-                !players.length && <EmptyView />
+                !players.length &&
+                <EmptyView>
+                    No players yet
+                </EmptyView>
             }
         </TableContainer>
     );
