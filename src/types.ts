@@ -8,6 +8,7 @@ export type Attempts = Attempt[];
 
 export interface Frame {
     attemptsMap: Record<string, Attempts>;
+    totalMap: Record<string, number>;
 }
 
 export interface Game {

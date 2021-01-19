@@ -2,15 +2,20 @@ import { Attempts, Frame, Player } from '../types';
 
 function createFrame (
     players: Player[],
-    attempts: Attempts[]
+    attempts?: Attempts[]
 ): Frame {
-    return {
-        attemptsMap: players.reduce<Record<string, Attempts>>((map, player, index) => {
-            map[player.name] = attempts[index];
+    return players.reduce<Frame>(
+        (frame, { name }, index) => {
+            frame.attemptsMap[name] = attempts ? attempts[index] : [void 0, void 0];
+            frame.totalMap[name] = 0;
 
-            return map;
-        }, {})
-    };
+            return frame;
+        },
+        {
+            attemptsMap: {},
+            totalMap: {}
+        }
+    );
 }
 
 function addFrame (
