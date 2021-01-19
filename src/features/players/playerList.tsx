@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 
-import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -16,7 +15,7 @@ const PlayerList: FC = () => {
     const players = usePlayers();
 
     return (
-        <TableContainer component={Paper}>
+        <Paper elevation={3}>
             <Table>
                 <TableHead>
                     <TableRow>
@@ -44,7 +43,7 @@ const PlayerList: FC = () => {
                     No players yet
                 </EmptyView>
             }
-        </TableContainer>
+        </Paper>
     );
 };
 
